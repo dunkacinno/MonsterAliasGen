@@ -1,30 +1,15 @@
+import re
 global userNameList
 global newUserNameList
+global dictList
 newUserNameList = []
 
-
-def UserName():
-    global userNameList
-    userNameStr = input("Input Your Name or \"QUIT\":")
-    userNameStr = userNameStr.upper() #capitalize all enteries.
-    if userNameStr == "QUIT":
-        exit()
-    else:
-        userNameStr = userNameStr.replace(" ", "") #remove any whitespace from userNameStr
-        userNameList = list(userNameStr) #convert userNameStr to a list, witch each character being a different item. 
-        return userNameList
-
-
-def CompareNameToDict():
-    global dictList
-    global userNameList
-    global newUserNameList
-    dictList = ["AARTUK", "AASIMAR", "AASIMAR", "ABALLIN", "ABEIL", "ABHIR", "ABOLETH", "ABRIAN", "ACHERI", "ACHUNGA",
+dictList = ["AARTUK", "AASIMAR", "AASIMAR", "ABALLIN", "ABEIL", "ABHIR", "ABOLETH", "ABRIAN", "ACHERI", "ACHUNGA",
                 "ACIDBLOB", "ACIDBORN", "ACROPHID", "ACTAEON", "ADAPTOR", "ADARO", "ADDAZAHR", "ADHERER", "ADUJA",
                 "AELFBORN", "AFANC", "AGARAT", "AGNATH", "AGTA", "AHMORAS", "AHUIZOTL", "AIRFISH", "AIRJELLY",
                 "AKETHETI", "AKIKAGE", "AKLEU", "ALJAHAR", "ALMIRAJ", "ALAGHI", "ALAN", "ALARON", "ALBARI", "ALCOR",
                 "ALEAX", "ALGOID", "ALGROTH", "ALGUDUIR", "ALLIP", "ALLURA", "ALPACA", "ALPHAKS", "AMAKUA", "AMBIENT",
-                "AMBITION", "AMISKWIA", "AMITOK", "AMMUT", "AMOBEA", "AMOEBA", "AMORPH", "AMYRIA", "ANADJIIN", "ANAGO",
+                "AMBITION", "   AMISKWIA", "AMITOK", "AMMUT", "AMOBEA", "AMOEBA", "AMORPH", "AMYRIA", "ANADJIIN", "ANAGO",
                 "ANAK", "ANAKORE", "ANCESTOR", "ANCIENT", "ANDELOID", "ANDROID", "ANEMONE", "ANGEL", "ANGREDEN",
                 "ANGRYMOB", "ANHANGA", "ANIMAL", "ANIMATOR", "ANIMUS", "ANKHEG", "ANKOU", "ANNELID", "ANT", "ANTLION",
                 "ANTELOPE", "ANTLOID", "ANTMAN", "ANUBI", "ANUCHU", "AOA", "APE", "APEP", "APOLLYON", "APRIG", "ARANEA",
@@ -260,6 +245,28 @@ def CompareNameToDict():
                 "ZTAL", "ZAIRTAIL", "ZAMULBAH", "ZARATAN", "ZARD", "ZARGON", "ZAT", "ZEALOT", "ZEBRA", "ZENYTHRI",
                 "ZERN", "ZEUGALAK", "ZEZIR", "ZHACKAL", "ZHEN", "ZINCARLA", "ZODAR", "ZOKUJIN", "ZOMBIE", "ZOMBIRE",
                 "ZORBO", "ZOVERI", "ZUTEREN", "ZUNGAR", "ZURCHIN", "ZWERGIND", "ZYERN", "ZYGODACT"]
+
+
+def UserName():
+    global userNameList
+    userNameStr = input("Input Your Name or \"QUIT\":")
+    userNameStr = userNameStr.upper() #capitalize all enteries.
+    if userNameStr == "QUIT":
+        exit()
+    else:
+        userNameStr = userNameStr.replace(" ", "") #remove any whitespace from userNameStr
+        userNameList = list(userNameStr) #convert userNameStr to a list, witch each character being a different item. 
+        return userNameList
+
+def StripList():
+    global dictList
+    dictList = [''.join(e for e in string if e.isalnum()) for string in dictList]
+
+def CompareNameToDict():
+    global dictList
+    global userNameList
+    global newUserNameList
+
     userNameTuple = tuple(userNameList) #make an immutable tuple "backup" of original userNameList
     print(userNameTuple)
     for r in range(len(dictList)): #start of anagram loop. Should probably move to its own function. 
@@ -280,6 +287,7 @@ def CompareNameToDict():
 
 def main():
     UserName()
+    StripList()
     CompareNameToDict()
 
 main()
