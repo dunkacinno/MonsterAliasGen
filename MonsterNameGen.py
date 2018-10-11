@@ -5,14 +5,13 @@ newUserNameList = []
 
 def UserName():
     global userNameList
-    userName = input("Input Your Name or \"QUIT\":")
-    if userName == "QUIT":
+    userNameStr = input("Input Your Name or \"QUIT\":")
+    userNameStr = userNameStr.upper() #capitalize all enteries.
+    if userNameStr == "QUIT":
         exit()
     else:
-
-        userNameStr = userName.replace(" ", "")
-        userNameStr = userNameStr.upper()
-        userNameList = list(userNameStr)
+        userNameStr = userNameStr.replace(" ", "") #remove any whitespace from userNameStr
+        userNameList = list(userNameStr) #convert userNameStr to a list, witch each character being a different item. 
         return userNameList
 
 
@@ -261,35 +260,26 @@ def CompareNameToDict():
                 "ZTAL", "ZAIRTAIL", "ZAMULBAH", "ZARATAN", "ZARD", "ZARGON", "ZAT", "ZEALOT", "ZEBRA", "ZENYTHRI",
                 "ZERN", "ZEUGALAK", "ZEZIR", "ZHACKAL", "ZHEN", "ZINCARLA", "ZODAR", "ZOKUJIN", "ZOMBIE", "ZOMBIRE",
                 "ZORBO", "ZOVERI", "ZUTEREN", "ZUNGAR", "ZURCHIN", "ZWERGIND", "ZYERN", "ZYGODACT"]
-    userNameListTuple = tuple(userNameList)
-    print(userNameListTuple)
-
-    for r in range(len(dictList)):
-        dictListName = list(dictList[r])
-
-        checkCount = 0
-        s = ""
-        newUserNameList = list(userNameListTuple)
-
-        for r in range(len(dictListName)):
-
-            if dictListName[r] in userNameList:
-                character = dictListName[r]
-
-                remChar = (userNameList.index(character))
-                newUserNameList[remChar] = []
+    userNameTuple = tuple(userNameList) #make an immutable tuple "backup" of original userNameList
+    print(userNameTuple)
+    for r in range(len(dictList)): #start of anagram loop. Should probably move to its own function. 
+        dictListName = list(dictList[r])  #assign [r] item to dictListName
+        checkCount = 0 
+        anagram = ""
+        newUserNameList = list(userNameTuple) #assign userNameTuple to a mutable list.
+        for r in range(len(dictListName)): #for each character in the list, do this loop.
+            if dictListName[r] in userNameList: # if current letter in monster name is in user name do this next
+                character = dictListName[r] #give the variable "character" the proerty of the current character in the monster name
+                remChar = (userNameList.index(character))  #get the index of that character from that list
+                newUserNameList[remChar] = [] #remove that character from userNameList so it can't be used twice
                 checkCount += 1
-                s += str(character)
-
-                if checkCount == len(dictListName):
+                anagram += str(character) #append that character to the string for the anagram that will be dispalayer
+                if checkCount == len(dictListName): ## if we get a complete anagram do this loop, if not, the program will move on the the next item in dictList
                     # print("True:")
-                    print(s)
-
+                    print(anagram)
 
 def main():
-    while True:
-        UserName()
-        CompareNameToDict()
-
+    UserName()
+    CompareNameToDict()
 
 main()
